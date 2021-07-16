@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct FeedView: View {
+    
+    @State var isShowingNewTweetView = false
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             ScrollView {
@@ -16,7 +19,7 @@ struct FeedView: View {
                 }
             }
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            Button(action: { isShowingNewTweetView.toggle() }, label: {
                 Image("Tweet")
                     .resizable()
                     .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
@@ -27,6 +30,9 @@ struct FeedView: View {
             .foregroundColor(.white)
             .clipShape(Circle())
             .padding()
+            .fullScreenCover(isPresented: $isShowingNewTweetView) {
+                NewTweetView(isPresented: $isShowingNewTweetView)
+            }
         }
     }
 }
